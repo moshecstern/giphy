@@ -7,13 +7,15 @@ $(document).ready(function () {
       //console.log "this"
     console.log($(this).attr("data-name"));
     var giphName = $(this).attr("data-name");
-    var queryURL = "https://www.omdbapi.com/?t=" + giphName + "&apikey=trilogy";
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + giphName + "&apikey=l65DOVZqzCV7f9KvfiPdx8g4rfyHcN3A";
+    // http://api.giphy.com/v1/gifs/search?q=ryan+gosling
     console.log(queryURL);
     $.ajax({
       url: queryURL,
       method: "GET"
     }).then(function (response) {
       console.log(response);
+      console.log(response.data);
 
     //   $("#results-div").text(JSON.stringify(response));
     console.log(this);
@@ -22,32 +24,32 @@ $(document).ready(function () {
           // Creates a div to hold the movie
           var newDiv = $("#results-div");
           // movie title all in one line
-          newDiv.append("<p>Title: "+response.Title+"</p>");
-          // Retrieves the Rating Data
-          var rating = response.Rated;
-          // console.log("the ratings for this movie is "+ response.Rated);
-          // Creates an element to have the rating displayed
-          var ratingsDisplay = $("<p>").text("this movie is rated " + rating);
-          // Displays the rating
-          newDiv.append(ratingsDisplay);
-          // Retrieves the release year
-          console.log("release year is " + response.Released);
-          // Creates an element to hold the release year
-          var releaseYear = $("<p>").text("Release Year: "+ response.Released);
-          // Displays the release year
-          newDiv.append(releaseYear);
-          // Retrieves the plot
-          var myPlot= response.Plot;
-          // Creates an element to hold the plot
-          var moviePlot = $("<p>").text("The plot is: " + myPlot);
-          // Appends the plot
-          newDiv.append(moviePlot);
-          // Creates an element to hold the image
-          var imgURL = response.Poster;
-          // Appends the image
-          var displayPoster = $("<p>").html("this poster is <img src ='" + imgURL +"'/>");
-            newDiv.append(displayPoster);
-          // Puts the entire Movie above the previous movies.
+          newDiv.append("<p>Rating: "+response.rating+"</p>");
+          // // Retrieves the Rating Data
+          // var rating = response.Rated;
+          // // console.log("the ratings for this movie is "+ response.Rated);
+          // // Creates an element to have the rating displayed
+          // var ratingsDisplay = $("<p>").text("this movie is rated " + rating);
+          // // Displays the rating
+          // newDiv.append(ratingsDisplay);
+          // // Retrieves the release year
+          // console.log("release year is " + response.Released);
+          // // Creates an element to hold the release year
+          // var releaseYear = $("<p>").text("Release Year: "+ response.Released);
+          // // Displays the release year
+          // newDiv.append(releaseYear);
+          // // Retrieves the plot
+          // var myPlot= response.Plot;
+          // // Creates an element to hold the plot
+          // var moviePlot = $("<p>").text("The plot is: " + myPlot);
+          // // Appends the plot
+          // newDiv.append(moviePlot);
+          // // Creates an element to hold the image
+          // var imgURL = response.Poster;
+          // // Appends the image
+          // var displayPoster = $("<p>").html("this poster is <img src ='" + imgURL +"'/>");
+          //   newDiv.append(displayPoster);
+          // // Puts the entire Movie above the previous movies.
           $("#movies-view").prepend(newDiv);
     });
   };
