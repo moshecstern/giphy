@@ -12,7 +12,7 @@ form{
 .container{
     float: right;
 }
-#buttons-view{
+.buttons{
     margin: 20px;
 }
 #giph-input{

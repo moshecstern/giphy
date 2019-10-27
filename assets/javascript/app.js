@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var giphsArray = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
-    
+    var giphsArray = ["Flinstones", "animated batman", "spider man 94", "powerpuff girls"];
+    var favGiphsArray=[];
     // Function for dumping the JSON content for each button into the div
     function displayGiphs() {
       // clears out results div everytime we put in new giph search
@@ -8,7 +8,7 @@ $(document).ready(function () {
       
       //console.log "this"
       var giphName = $(this).attr("data-name");
-      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + giphName + "&limit=10&apikey=l65DOVZqzCV7f9KvfiPdx8g4rfyHcN3A";
+      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + giphName + "&limit=11&apikey=l65DOVZqzCV7f9KvfiPdx8g4rfyHcN3A";
       console.log(queryURL);
       $.ajax({
         url: queryURL,
@@ -26,50 +26,76 @@ $(document).ready(function () {
               //We create a new div to hold the rating and gif
 		    var newDiv = $("<div class='aroundGifs'>");
   // Within the new div we append a paragraph for the rating
-  newDiv.append("<p>Rating: " + responseG.rating + "</p>")
-   // newImg is a new image element that will hold the actual gif
-   var newImg = $("<img>");
-   newImg.attr({
+  newDiv.append("<p>Rating: " + responseG.rating + "</p>");
+  // add more stuff for each giph
+  newDiv.append("<p> Title: " + responseG.title + "</p>");
+  
+  // create "fav-button" for each giph that pushes giph to favGiphArray
+  var favButton = $("<button>");
+favButton.attr({
+  "src": responseG.images.fixed_height.url,
+  "class": "fav-button"
+});
+favButton.text("Fav");
+newDiv.append(favButton);
+  // id='fav-button'>"+"Fav this Giph!" +"</button
+
+  // newImg is a new image element that will hold the actual gif
+  var newImg = $("<img>");
+  newImg.attr({
     "src": responseG.images.fixed_height_still.url,
     "data-still": responseG.images.fixed_height_still.url,
     "data-animate": responseG.images.fixed_height.url,
     "data-state": "still",
     "class": "gif"
   });
-
-    // appending newImg to newDiv
-    newDiv.append(newImg);
-    // take the newDiv and apend it to the results div
-    $("#results-div").append(newDiv);
+  
+  // appending newImg to newDiv
+  newDiv.append(newImg);
+  // take the newDiv and apend it to the results div
+  $("#results-div").append(newDiv);
 }
 // style the individual giphs by grabbing class we added to each giph
 $(".aroundGifs").css("border-style", "double");
-    $(".aroundGifs").css("margin", "2px");
-    $(".aroundGifs").css("width", "auto");
+$(".aroundGifs").css("margin", "2px");
+$(".aroundGifs").css("width", "auto");
 
 
-    $(".gif").on("click", function() {
-			// this is refering to the individual giph with class "giph" that we  just  clicked
-      var state = $(this).attr("data-state");
-		   
-      // $(this).attr("data-state") will either be "still" or "animate"
-      // IF state is still, switch to animate
-      if (state === "still") {
-        
-        var newSrc = $(this).attr("data-animate");
-        $(this).attr("src", newSrc);
-        $(this).attr("data-state", "animate");
-        // else if attr is animate, switch to still
-      } else {
-        var newSrc = $(this).attr("data-still");
-        $(this).attr("src", newSrc);
-        $(this).attr("data-state", "still");
-      }
-    }); // end of click handler
-   
-   });
- };
+// on fav giph button click 
+$(".fav-button").on("click", function(){
+  console.log("im clicking button " + (this));
+  // push into fav giphs div
+newDiv.push(favGiphsArray);
+  favGiphsArray.push("#fav-giphs");
+//
+})
+$(".gif").on("click", function() {
+  // this is refering to the individual giph with class "giph" that we  just  clicked
+  var state = $(this).attr("data-state");
+  
+  // $(this).attr("data-state") will either be "still" or "animate"
+  // IF state is still, switch to animate
+  if (state === "still") {
+    
+    var newSrc = $(this).attr("data-animate");
+    $(this).attr("src", newSrc);
+    $(this).attr("data-state", "animate");
+    // else if attr is animate, switch to still
+  } else {
+    var newSrc = $(this).attr("data-still");
+    $(this).attr("src", newSrc);
+    $(this).attr("data-state", "still");
+  }
+}); // end of click handler
 
+});
+};
+function showgiphsarray(){
+  for (var i = 0; favGiphsArray.length; i++){
+    var b = $("#fav-button");
+    favGiphsArray.push("#fav-giphs");
+  }
+}
 
   // Function for displaying giph data
     function renderButtons() {
@@ -115,7 +141,6 @@ $(".aroundGifs").css("border-style", "double");
     
     // Calling the renderButtons function to display the intial buttons
     renderButtons();
-    
     
     
     
