@@ -54,21 +54,36 @@ newDiv.append(favButton);
   newDiv.append(newImg);
   // take the newDiv and apend it to the results div
   $("#results-div").append(newDiv);
-}
-// style the individual giphs by grabbing class we added to each giph
-$(".aroundGifs").css("border-style", "double");
-$(".aroundGifs").css("margin", "2px");
-$(".aroundGifs").css("width", "auto");
 
+  
+  
+}; // end of loop
+
+// style the individual giphs by grabbing class we added to each giph
+// $(".aroundGifs").css("border-style", "double");
+// $(".aroundGifs").css("margin", "2px");
+// $(".aroundGifs").css("max-width", "600px");
 
 // on fav giph button click 
 $(".fav-button").on("click", function(){
-  console.log("im clicking button " + (this));
-  // push into fav giphs div
-newDiv.push(favGiphsArray);
-  favGiphsArray.push("#fav-giphs");
+  // console.log("im clicking button " + newDiv);
+  // console.log(newDiv);
+  console.log(responseG);
+
+  // need to change newDiv to current giph
+  favGiphsArray.push(newDiv);
+  console.log(favGiphsArray);
+  $("#fav-giphs").append(favGiphsArray);
+  
 //
 })
+// function showgiphsarray(){
+//   for (var i = 0; favGiphsArray.length; i++){
+//     var b = $("#fav-button");
+//     favGiphsArray.append("#fav-giphs");
+//   }
+// }
+
 $(".gif").on("click", function() {
   // this is refering to the individual giph with class "giph" that we  just  clicked
   var state = $(this).attr("data-state");
@@ -90,12 +105,6 @@ $(".gif").on("click", function() {
 
 });
 };
-function showgiphsarray(){
-  for (var i = 0; favGiphsArray.length; i++){
-    var b = $("#fav-button");
-    favGiphsArray.push("#fav-giphs");
-  }
-}
 
   // Function for displaying giph data
     function renderButtons() {
