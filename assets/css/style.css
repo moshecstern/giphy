@@ -1,0 +1,20 @@
+body{
+    background-color: aqua;
+}
+#results-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:start;
+}
+form{
+    float: right;
+}
+.container{
+    float: right;
+}
+#buttons-view{
+    margin: 20px;
+}
+#giph-input{
+    margin-bottom: 20px;
+}
