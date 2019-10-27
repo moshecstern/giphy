@@ -8,7 +8,7 @@ $(document).ready(function () {
       
       //console.log "this"
       var giphName = $(this).attr("data-name");
-      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + giphName + "&limit=11&apikey=l65DOVZqzCV7f9KvfiPdx8g4rfyHcN3A";
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphName + "&limit=11&apikey=l65DOVZqzCV7f9KvfiPdx8g4rfyHcN3A";
       console.log(queryURL);
       $.ajax({
         url: queryURL,
@@ -29,7 +29,7 @@ $(document).ready(function () {
   newDiv.append("<p>Rating: " + responseG.rating + "</p>");
   // add more stuff for each giph
   newDiv.append("<p> Title: " + responseG.title + "</p>");
-  
+
   // create "fav-button" for each giph that pushes giph to favGiphArray
   var favButton = $("<button>");
 favButton.attr({
