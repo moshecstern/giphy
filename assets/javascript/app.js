@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var giphsArray = ["Flinstones", "animated batman", "spider man 94", "powerpuff girls"];
+    var giphsArray = ["Flinstones", "batman", "spider-man", "powerpuff girls"];
     var favGiphsArray=[];
     // Function for dumping the JSON content for each button into the div
     function displayGiphs() {
@@ -50,7 +50,32 @@ newDiv.append(favButton);
     "class": "gif"
   });
   
-  // appending newImg to newDiv
+//maybe add on click inside loop to connect to each one
+// on fav giph button click 
+$(".fav-button").on("click", function(){
+  // console.log("im clicking button " + newDiv);
+  // console.log(newDiv);
+  // console.log(response.data.Array[i]);
+  // console.log(responseG);
+  // console.log($(this).aroundGifs)
+// console.log(newDiv);
+// console.log($(".aroundGifs"));
+// console.log($(".aroundGifs[i]"));
+// console.log((this).addClass +"im clicking this div");
+var state = $(this).attr(".aroundGifs");
+console.log(state);
+  // need to change newDiv to current giph
+  favGiphsArray.push(newDiv);
+  // moves physical button to results div, not the whole giph
+  // favGiphsArray.push(this);
+  
+  $("#fav-giphs").append(newDiv);
+  // console.log(favGiphsArray);
+}) // end of on click function
+
+
+
+// appending newImg to newDiv
   newDiv.append(newImg);
   // take the newDiv and apend it to the results div
   $("#results-div").append(newDiv);
@@ -64,19 +89,12 @@ newDiv.append(favButton);
 // $(".aroundGifs").css("margin", "2px");
 // $(".aroundGifs").css("max-width", "600px");
 
-// on fav giph button click 
-$(".fav-button").on("click", function(){
-  // console.log("im clicking button " + newDiv);
-  // console.log(newDiv);
-  console.log(responseG);
+// $(".fav-button").on('click', function(event) {
+//   // 'this' here = externalObject
+//   this.fnFromExternalObject($(event.currentTarget).data(".gif"));
+// }.bind(externalObject));
 
-  // need to change newDiv to current giph
-  favGiphsArray.push(newDiv);
-  console.log(favGiphsArray);
-  $("#fav-giphs").append(favGiphsArray);
-  
-//
-})
+
 // function showgiphsarray(){
 //   for (var i = 0; favGiphsArray.length; i++){
 //     var b = $("#fav-button");
@@ -84,10 +102,10 @@ $(".fav-button").on("click", function(){
 //   }
 // }
 
+
 $(".gif").on("click", function() {
   // this is refering to the individual giph with class "giph" that we  just  clicked
   var state = $(this).attr("data-state");
-  
   // $(this).attr("data-state") will either be "still" or "animate"
   // IF state is still, switch to animate
   if (state === "still") {
@@ -103,8 +121,85 @@ $(".gif").on("click", function() {
   }
 }); // end of click handler
 
-});
-};
+});// end of first ajax call. giphy one
+
+// writing second ajax call for movie info
+var queryURLtwo = "https://www.omdbapi.com/?t=" + giphName + "&apikey=trilogy";
+
+        // Creating an AJAX call for the specific movie button being clicked
+        $.ajax({
+          url: queryURLtwo,
+          method: "GET"
+        }).then(function(response) {
+          // Creating a div to hold the movie
+          // var movieDiv = $("<div class='movie'>");
+          var movieDiv = $("<div class='aroundGifs movieDiv'>");
+
+          // Storing the rating data
+          var rating = response.Rated;
+
+          // Creating an element to have the rating displayed
+          var pOne = $("<p>").text("Rating: " + rating);
+
+          // Displaying the rating
+          movieDiv.append(pOne);
+
+          // Storing the release year
+          var released = response.Released;
+
+          // Creating an element to hold the release year
+          var pTwo = $("<p>").text("Released: " + released);
+
+          // Displaying the release year
+          movieDiv.append(pTwo);
+
+          // Storing the plot
+          var plot = response.Plot;
+
+          // Creating an element to hold the plot
+          var pThree = $("<p>").text("Plot: " + plot);
+
+          // Appending the plot
+          movieDiv.append(pThree);
+
+          // Retrieving the URL for the image
+          var imgURL = response.Poster;
+
+          // Creating an element to hold the image
+          var image = $("<img>").attr("src", imgURL);
+
+          // Appending the image
+          movieDiv.append(image);
+          
+          // Putting the div we just made into results-div
+          $("#results-div").prepend(movieDiv);       
+          
+        }); // end of second ajax call
+        ////// not working right
+
+
+//         // writing 3rd api for superhero data
+// // var queryURLthree = "https://superheroapi.com/api/10214859933028426/search/" + giphName;
+// var queryURLthree =  "https://superheroapi.com/api/10214859933028426/search/" +giphName + "/biography";
+// // https://superheroapi.com/api/access-token/search/name
+// // 10214859933028426	api key
+
+// // Creating an AJAX call for the specific movie button being clicked
+// console.log(queryURLthree);
+//         $.ajax({
+//           url: queryURLthree,
+//           method: "GET"
+//         }).then(function(response) {
+//           console.log(queryURLthree);
+//           console.log(response);
+// var heroDataDiv = $("<div class='aroundGifs heroDataDiv'>");
+// heroDataDiv.append(response);
+// // putting div we just created to prepend on results-div
+// $("#results-div").prepend(heroDataDiv);
+
+//         }); // end of 3rd api search
+
+}; // end of displayresults
 
   // Function for displaying giph data
     function renderButtons() {
@@ -151,6 +246,10 @@ $(".gif").on("click", function() {
     // Calling the renderButtons function to display the intial buttons
     renderButtons();
     
+    // add another api that will search of there is a movie connected with the name searched 
+// and then prepend to newDiv
+
+
     
     
     
