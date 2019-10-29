@@ -1,8 +1,9 @@
 $(document).ready(function () {
-  var giphsArray = ["Batman", "Spider-Man", "Superman", "batman beyond", "teen titans", "Wonder Woman", 
+  var giphsArray = ["Batman", "Spider-Man", "Superman", "Groot", "teen titans", "Wonder Woman", 
 "Flash", "Green Arrow", "Avengers","Green Lantern", "The Hulk", "Black Panther", "Captain America", 
 "Iron-Man","Justice League", "Aquaman", "Captain Marvel", "Deadpool", "Thor", "Wolverine", "guardians of the galaxy",
-"suicide squad", "Doctor Strange", "Ant-Man", "X-Men", "Watchmen", "HellBoy", "Martian Manhunter", "Black Widow", "Joker"
+"suicide squad", "Doctor Strange", "Ant-Man", "X-Men", "Watchmen", "HellBoy", "Martian Manhunter", "Black Widow", "Swamp Thing",
+"Fantastic Four", "Catwoman", "Star-Lord", "Daredevil", "Dr. Manhattan"
 ];
   var favGiphsArray = [];
   // Function for dumping the JSON content for each button into the div
@@ -187,8 +188,9 @@ $(document).ready(function () {
               }).then(function (response) {
                 console.log("QUERY URL: " + queryURLthree);
                 console.log(response);
-                console.log(response.results[0]);
-                
+                console.log("my response is "+response.results[0]);
+                // if(response === true){
+
                 // making var to hold file path of first result in search
                 // var ourHeroResponse = response.results[i];
                 var heroDataDiv = $("<div class='aroundGifs movieDiv'>");
@@ -241,9 +243,9 @@ $(document).ready(function () {
                     var addP4 = $("<p>").text("Publisher: "+ publisherA);
                     heroDataDiv.prepend(addP4);
                     
-                    $("#results-two").append(heroDataDiv);
+                      $("#results-two").append(heroDataDiv);
                     
-                    
+                
                   }); // end of 3rd api search
                   
                 }; // end of displayresults
